@@ -1,0 +1,22 @@
+name: Windows
+
+on:
+  push:
+    branches: [ master, connreset_correction]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        go: [ '1.15', '1.14' ]
+
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go }}
+    - name: Run test
+      run: make test
